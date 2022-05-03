@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Love</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.css">
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            opacity: 0.9;
+        }
+
+        .modal-content {
+            height: 350px;
+        }
+
+        /* .engga button {
+            transform: rotate(90deg);
+        } */
+    </style>
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body mx-auto">
+                    <div class="body-message">
+                        <div class="mb-2 w-50 mx-auto">
+                            <img src="heart-happy.gif" alt="picture" class="w-100">
+                        </div>
+                        <div class="form-group text-center">
+                            <label class="font-weight-bold">Masukin Nama Kamu</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary w-50" id="buttonName">OKE</button>
+                        </div>
+                    </div>
+                    <div class="typewriter w-100 text-center" id="demo">
+                    </div>
+                    <div class="body-question d-none">
+                        <div class="mb-2 w-50 mx-auto">
+                            <img src="dudu-panda.gif" alt="picture" class="w-100">
+                        </div>
+                        <div class="text-center mb-4">
+                            <p class="mb-0 font-weight-bold"><b class="namePeople"></b> sayang gak sama Aku?</p>
+                            <i class="fa-solid fa-face-laugh-wink text-warning fa-2x"></i>
+                        </div>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="sayang">
+                                        <button class="btn btn btn-outline-success font-weight-bold w-100" id="sayang">Sayang</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="engga">
+                                        <a href="javascript:" class="btn btn btn-outline-secondary font-weight-bold w-100 tidak" id="engga">Engga</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body-answer d-none">
+                        <div class="mb-3 w-50 mx-auto">
+                            <img src="mimi-bubu.gif" alt="picture" class="w-100">
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0 font-weight-bold">Kalau Sayang <b class="namePeople"></b> mau dong jadi pacar aku?</p>
+                            <i class="fa-solid fa-face-grin-hearts text-danger fa-2x"></i>
+                        </div>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mau">
+                                        <button class="btn btn btn-outline-success font-weight-bold" id="mau">Mau</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="engga-mau">
+                                        <a href="javascript:" class="btn btn btn-outline-secondary font-weight-bold tidak-mau" id="engga-mau">Engga</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body-final d-none">
+                        <div class="mb-3 w-50 mx-auto">
+                            <img src="jadian.gif" alt="picture" class="w-100">
+                        </div>
+                        <div class="text-center mb-4">
+                            <p class="mb-0 font-weight-bold">Yeah! akhirnya kita jadian</p>
+                            <i class="fa-solid fa-face-laugh-squint text-warning"></i>
+                            <i class="fa-solid fa-heart-circle-check text-danger"></i>
+                            <p class="m-0 font-weight-bold">Tanggal Jadian kita adalah:</p>
+                            <p class="m-0 font-weight-bold"><span id="tanggalwaktu"></span></p>
+                            <div class="mt-4 chatWa d-none">
+                                <a href="https://api.whatsapp.com/send?phone=+6282274873030&amp;text=Iya Aku mau jadi pacar kamu :)." class="text-warning" target="_blank">[Kirim WhatsApp <i class="fa-solid fa-heart text-danger"></i>]</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio controls preload='auto' loop id="myAudio" class="d-none">
+        <source src="lagu.mp3" type="audio/mpeg" >
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.18.1/min/moment.min.js"></script>
+    <script>
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        
+            var x = document.getElementById("myAudio"); 
+            x.play();
+        
+            // stop microphone stream acquired by getUserMedia
+            stream.getTracks().forEach(function (track) { track.stop(); });
+        });
+    </script>
+    <script>
+        $(window).on('load', function() {
+            $('#exampleModal').modal('show');
+        });
+
+        
+
+        var i = 0;
+        var name;
+        var txt = 'Hai, '+name+'!... Jawab pertanyaan ini dengan jujur ya';
+        var speed = 50;
+
+        $(document).on('click', '#buttonName', function () {
+            $('.body-message').addClass('d-none');
+            name = $('#name').val()
+            $('.namePeople').text($('#name').val())
+            $('.namePeople').text($('#name').val())
+            // $('.body-question').removeClass('d-none');
+            typeWriter()
+            var timerInterval = setInterval(function() {
+                $('.body-question').removeClass('d-none');
+                $('.typewriter').addClass('d-none');
+                clearInterval(timerInterval);
+            }, 5000);
+        })
+
+        function typeWriter() {
+            if (i < txt.length) {
+                document.getElementById("demo").innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        $(document).on('click', '.tidak', function () {
+            $('#sayang').addClass('d-none');
+            $('.sayang').html('<div class="message-not"><b>Eits <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('#engga').css('transform', 'rotate(90deg)');
+            $(this).addClass('tidak-1');
+            $(this).removeClass('tidak');
+        })
+
+        $(document).on('click', '.tidak-1', function () {
+            $('.sayang').html('<div class="message-not"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('#engga').css('transform', 'rotate(180deg)');
+            $(this).addClass('tidak-2');
+            $(this).removeClass('tidak-1');
+        })
+
+        $(document).on('click', '.tidak-2', function () {
+            $('.sayang').html('<button class="btn btn btn-outline-success font-weight-bold w-100 animate__animated animate__backInLeft" id="sayang">Sayang</button>');
+            $('.message-not').addClass('d-none')
+            $('#engga').css('transform', 'rotate(360deg)');
+            $(this).addClass('tidak');
+            $(this).removeClass('tidak-2');
+        })
+
+        $(document).on('click', '#sayang', function () {
+            $('.body-question').addClass('d-none');
+            $('.body-answer').removeClass('d-none');
+        })
+
+        $(document).on('click', '.tidak-mau', function () {
+            $('#mau').addClass('d-none');
+            $('.mau').html('<div class="message-not"><b>Yakin ??</b></div>')
+            $('#engga-mau').css('transform', 'rotate(90deg)');
+            $(this).addClass('tidak-mau-1');
+            $(this).removeClass('tidak-mau');
+        })
+
+        $(document).on('click', '.tidak-mau-1', function () {
+            $('.mau').html('<div class="message-not"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('#engga-mau').css('transform', 'rotate(180deg)');
+            $(this).addClass('tidak-mau-2');
+            $(this).removeClass('tidak-mau-1');
+        })
+
+        $(document).on('click', '.tidak-mau-2', function () {
+            $('.mau').html('<button class="btn btn btn-outline-success font-weight-bold animate__animated animate__backInLeft" id="mau">Mau</button>');
+            $('.message-not').addClass('d-none')
+            $('#engga-mau').css('transform', 'rotate(360deg)');
+            $(this).addClass('tidak-mau');
+            $(this).removeClass('tidak-mau-2');
+                let timerInterval
+                Swal.fire({
+                    html: 'Harus Mau!!! <i class="fa-solid fa-face-grin-tongue-wink"></i>',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                })
+        })
+        
+        $(document).on('click', '#mau', function () {
+            $('.body-answer').addClass('d-none')
+            $('.body-final').removeClass('d-none')
+            var timerInterval = setInterval(function() {
+                let timerIntervalPopUp
+                Swal.fire({
+                    html: 'Kirim Pesan Ke WhatsApp Aku ya!!',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerIntervalPopUp = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerIntervalPopUp)
+                    }
+                })
+                clearInterval(timerInterval);
+                $('.chatWa').removeClass('d-none');
+            }, 1000);
+        })
+
+        var date = moment(); //Get the current date
+        document.getElementById("tanggalwaktu").innerHTML = date.format("DD MMM YYYY");
+  </script>
+</body>
+</html>
