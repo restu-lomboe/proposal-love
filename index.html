@@ -16,9 +16,9 @@
             opacity: 0.9;
         }
 
-        .modal-content {
+        /* .modal-content {
             height: 350px;
-        }
+        } */
 
         /* .engga button {
             transform: rotate(90deg);
@@ -108,13 +108,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-center mt-4">
+                    <small class="text-center">copyright © restu <script>document.write(new Date().getFullYear());</script></small>
+                </div>
             </div>
         </div>
     </div>
 
-    <audio controls preload='auto' loop id="myAudio" class="d-none">
+    <!-- <audio controls preload='auto' loop id="myAudio" class="d-none">
         <source src="lagu.mp3" type="audio/mpeg" >
-    </audio>
+    </audio> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -122,14 +125,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.18.1/min/moment.min.js"></script>
     <script>
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        // navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
         
-            var x = document.getElementById("myAudio"); 
-            x.play();
+        //     var x = document.getElementById("myAudio"); 
+        //     x.play();
         
-            // stop microphone stream acquired by getUserMedia
-            stream.getTracks().forEach(function (track) { track.stop(); });
-        });
+        //     // stop microphone stream acquired by getUserMedia
+        //     stream.getTracks().forEach(function (track) { track.stop(); });
+        // });
     </script>
     <script>
         $(window).on('load', function() {
@@ -144,17 +147,37 @@
         var speed = 50;
 
         $(document).on('click', '#buttonName', function () {
-            $('.body-message').addClass('d-none');
-            name = $('#name').val()
-            $('.namePeople').text($('#name').val())
-            $('.namePeople').text($('#name').val())
-            // $('.body-question').removeClass('d-none');
-            typeWriter()
-            var timerInterval = setInterval(function() {
-                $('.body-question').removeClass('d-none');
-                $('.typewriter').addClass('d-none');
-                clearInterval(timerInterval);
-            }, 5000);
+            if ($('#name').val()) {
+                $('.body-message').addClass('d-none');
+                name = $('#name').val()
+                $('.namePeople').text($('#name').val())
+                $('.namePeople').text($('#name').val())
+                // $('.body-question').removeClass('d-none');
+                typeWriter()
+                var timerInterval = setInterval(function() {
+                    $('.body-question').removeClass('d-none');
+                    $('.typewriter').addClass('d-none');
+                    clearInterval(timerInterval);
+                }, 5000);
+            } else {
+                let timerIntervalPopUp
+                Swal.fire({
+                    html: 'isi namanya dulu ya',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerIntervalPopUp = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerIntervalPopUp)
+                    }
+                })
+            }
         })
 
         function typeWriter() {
@@ -167,14 +190,14 @@
 
         $(document).on('click', '.tidak', function () {
             $('#sayang').addClass('d-none');
-            $('.sayang').html('<div class="message-not"><b>Eits <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('.sayang').html('<div class="message-not animate__animated animate__wobble"><b>Eits <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
             $('#engga').css('transform', 'rotate(90deg)');
             $(this).addClass('tidak-1');
             $(this).removeClass('tidak');
         })
 
         $(document).on('click', '.tidak-1', function () {
-            $('.sayang').html('<div class="message-not"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('.sayang').html('<div class="message-not animate__animated animate__wobble"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
             $('#engga').css('transform', 'rotate(180deg)');
             $(this).addClass('tidak-2');
             $(this).removeClass('tidak-1');
@@ -195,14 +218,14 @@
 
         $(document).on('click', '.tidak-mau', function () {
             $('#mau').addClass('d-none');
-            $('.mau').html('<div class="message-not"><b>Yakin ??</b></div>')
+            $('.mau').html('<div class="message-not animate__animated animate__wobble"><b>Yakin ??</b></div>')
             $('#engga-mau').css('transform', 'rotate(90deg)');
             $(this).addClass('tidak-mau-1');
             $(this).removeClass('tidak-mau');
         })
 
         $(document).on('click', '.tidak-mau-1', function () {
-            $('.mau').html('<div class="message-not"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
+            $('.mau').html('<div class="message-not animate__animated animate__wobble"><b>Ga Bisa <i class="fa-solid fa-face-grin-tongue-wink text-warning"></i></b></div>')
             $('#engga-mau').css('transform', 'rotate(180deg)');
             $(this).addClass('tidak-mau-2');
             $(this).removeClass('tidak-mau-1');
@@ -256,7 +279,7 @@
                 })
                 clearInterval(timerInterval);
                 $('.chatWa').removeClass('d-none');
-            }, 1000);
+            }, 2000);
         })
 
         var date = moment(); //Get the current date
